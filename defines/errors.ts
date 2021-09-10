@@ -3,6 +3,8 @@ import Joi from 'joi';
 const ERROR_VARIANTS = ['CE'] as const;
 type ErrorCode = `${typeof ERROR_VARIANTS[number]}${number}`;
 
+// FIXME: convert to class declaration 🤔
+
 export interface CustomError {
   code: ErrorCode;
   name: string;
