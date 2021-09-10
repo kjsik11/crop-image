@@ -5,16 +5,15 @@ import type { ModalProps } from '@components/ui/Modal';
 
 const MODAL_KEY = '@modal' as const;
 
-const initialModalProps: ModalProps = {
+const initialModalProps: Omit<ModalProps, 'close'> = {
   show: false,
   title: '',
   content: '',
   actionButton: { label: '', onClick: () => {} },
-  close: () => {},
 };
 
 export function useModal() {
-  const { data: modal, mutate: setModal } = useSWR<Omit<ModalProps, 'close'>>(MODAL_KEY, {
+  const { data: modal, mutate: setModal } = useSWR(MODAL_KEY, {
     fallbackData: initialModalProps,
     fetcher: undefined,
   });

@@ -5,15 +5,14 @@ import type { NotificationProps } from '@components/ui/Notification';
 
 const NOTI_KEY = '@noti' as const;
 
-const initialNotiProps: NotificationProps = {
+const initialNotiProps: Omit<NotificationProps, 'close'> = {
   show: false,
   title: 'Empty Notification',
-  close: () => {},
 };
 
 export function useNoti() {
   const timer = useRef<NodeJS.Timeout | null>(null);
-  const { data: noti, mutate: setNoti } = useSWR<Omit<NotificationProps, 'close'>>(NOTI_KEY, {
+  const { data: noti, mutate: setNoti } = useSWR(NOTI_KEY, {
     fallbackData: initialNotiProps,
     fetcher: undefined,
   });
