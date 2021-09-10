@@ -1,21 +1,11 @@
 {
-  "name": "next-tailwind-ts-template",
-  "version": "4.0.3",
-  "description": "template project",
+  "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "lint": "next lint",
     "start": "next start"
   },
-  "keywords": [
-    "react",
-    "next",
-    "tailwindcss",
-    "@headlessui",
-    "typescript"
-  ],
-  "license": "MIT",
   "dependencies": {
     "@headlessui/react": "1.4.0",
     "@heroicons/react": "1.0.4",
