@@ -3,5 +3,5 @@
 ### Usage
 
 ```bash
-yarn create next-app my-app -e coxwave/nextjs-template
+yarn create next-app my-app -e https://github.com/coxwave/nextjs-template
 ```
