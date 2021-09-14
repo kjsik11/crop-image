@@ -1,4 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
+import { withErrorHandler } from '@utils/with-error-handler';
 
 /**
  *
@@ -23,3 +24,5 @@ const handler = (req: NextApiRequest, res: NextApiResponse) => {
     });
   }
 };
+
+export default withErrorHandler(handler);
