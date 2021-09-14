@@ -8,7 +8,7 @@ if (process.env.NODE_ENV !== 'test' && !hashIdKey) {
   throw new Error('Missing HASHIDS_KEY');
 }
 
-export function encodeId(id: ObjectId, key = hashIdKey): string {
+export function encodeId(id: ObjectId): string {
   return hashIds.encodeHex(String(id));
 }
 
