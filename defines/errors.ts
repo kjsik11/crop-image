@@ -8,7 +8,7 @@ type ErrorCode = `${typeof ERROR_VARIANTS[number]}${number}`;
 export interface CustomError {
   code: ErrorCode;
   name: string;
-  message: string;
+  message?: string;
 }
 
 export function isCustomError(error: any): error is CustomError {
