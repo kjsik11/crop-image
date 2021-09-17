@@ -1,9 +1,9 @@
 import ERRORS from '@defines/errors';
 import jwt from 'jsonwebtoken';
+import { getEnv } from './env';
 
 const JWT_ALGORITHM = 'HS512';
-const JWT_SECRET = process.env.JWT_SECRET;
-if (!JWT_SECRET) throw new Error('Missing JWT_SECRET');
+const JWT_SECRET = getEnv('JWT_SECRET');
 
 interface SignTokenOption {
   expiresIn?: string | number;

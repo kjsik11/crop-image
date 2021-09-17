@@ -3,6 +3,7 @@ import { isResSent } from 'next/dist/shared/lib/utils';
 import Joi from 'joi';
 
 import ERRORS, { CustomError } from '@defines/errors';
+import { isProd } from './env';
 
 export function withErrorHandler(handler: NextApiHandler) {
   const wrappedHandler: NextApiHandler = async (req, res) => {
@@ -27,11 +28,7 @@ export function withErrorHandler(handler: NextApiHandler) {
 
       return res
         .status(res.statusCode >= 400 ? res.statusCode : 500)
-        .json(
-          ERRORS.INTERNAL_SERVER_ERROR(
-            process.env.NODE_ENV !== 'production' ? (err as Error).message : undefined,
-          ),
-        );
+        .json(ERRORS.INTERNAL_SERVER_ERROR(!isProd() ? (err as Error).message : undefined));
     }
   };
 
