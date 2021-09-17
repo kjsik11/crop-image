@@ -2,7 +2,7 @@ import type { NextApiHandler } from 'next';
 import { isResSent } from 'next/dist/shared/lib/utils';
 import Joi from 'joi';
 
-import { createError, isCustomError } from '@defines/errors';
+import ERRORS, { CustomError } from '@defines/errors';
 
 export function withErrorHandler(handler: NextApiHandler) {
   const wrappedHandler: NextApiHandler = async (req, res) => {
@@ -10,7 +10,7 @@ export function withErrorHandler(handler: NextApiHandler) {
       await handler(req, res);
 
       if (!isResSent(res)) {
-        res.status(400).json(createError('METHOD_NOT_EXISTS'));
+        res.status(400).json(ERRORS.METHOD_NOT_EXISTS());
       }
     } catch (err) {
       if (isResSent(res)) {
@@ -18,20 +18,20 @@ export function withErrorHandler(handler: NextApiHandler) {
       }
 
       if (Joi.isError(err)) {
-        return res.status(400).json(
-          createError('VALIDATION_FAILED', {
-            message: err.message,
-          }),
-        );
+        return res.status(400).json(ERRORS.VALIDATION_FAILED(err.message));
       }
 
-      if (isCustomError(err)) {
-        return res.status(res.statusCode >= 400 ? res.statusCode : 500).json(err);
+      if (err instanceof CustomError) {
+        return res.status(err.status).json(err);
       }
 
       return res
         .status(res.statusCode >= 400 ? res.statusCode : 500)
-        .json(createError('INTERNAL_SERVER_ERROR', err as Error));
+        .json(
+          ERRORS.INTERNAL_SERVER_ERROR(
+            process.env.NODE_ENV !== 'production' ? (err as Error).message : undefined,
+          ),
+        );
     }
   };
 
