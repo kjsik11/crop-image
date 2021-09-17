@@ -80,6 +80,10 @@ const ERRORS = {
     ),
   VALIDATION_FAILED: (message?: string) =>
     new CustomError('CE002', 400, 'Validation failed', message ?? "Check your request's validity."),
+  INVALID_TOKEN: (message?: string) =>
+    new CustomError('CE003', 401, 'Invalid token', message ?? 'Invalid Token'),
+  TOKEN_EXPIRED: (message?: string) =>
+    new CustomError('CE004', 401, 'Token expired', message ?? 'Token expired'),
 } as const;
 
 export default ERRORS;

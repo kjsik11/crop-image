@@ -1,10 +1,11 @@
 import { ObjectId } from 'mongodb';
 import HashIds from 'hashids';
+import { isTest } from '@utils/env';
 
 const hashIdKey = process.env.HASHIDS_KEY;
 const hashIds = new HashIds(hashIdKey);
 
-if (process.env.NODE_ENV !== 'test' && !hashIdKey) {
+if (!isTest() && !hashIdKey) {
   throw new Error('Missing HASHIDS_KEY');
 }
 

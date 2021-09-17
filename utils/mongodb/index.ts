@@ -1,10 +1,7 @@
+import { getEnv, isDev } from '@utils/env';
 import { MongoClient, MongoClientOptions } from 'mongodb';
 
-const mongoUri = process.env.MONGODB_URI;
-
-if (!mongoUri) {
-  throw new Error('Please define the MONGODB_URI environment variable inside .env.local');
-}
+const mongoUri = getEnv('MONGODB_URI');
 
 const options: MongoClientOptions = {
   ignoreUndefined: true,
@@ -17,7 +14,7 @@ interface GlobalWithMongoClient extends NodeJS.Global {
 let client: MongoClient;
 let clientPromise: Promise<MongoClient>;
 
-if (process.env.NODE_ENV === 'development') {
+if (isDev()) {
   // In development mode, use a global variable so that the value
   // is preserved across module reloads caused by HMR (Hot Module Replacement).
   if (!(global as GlobalWithMongoClient)._mongoClientPromise) {
