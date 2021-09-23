@@ -1,13 +1,8 @@
 import { ObjectId } from 'mongodb';
 import HashIds from 'hashids';
-import { isTest } from '@utils/env';
+import { HASHIDS_KEY } from '@defines/env';
 
-const hashIdKey = process.env.HASHIDS_KEY;
-const hashIds = new HashIds(hashIdKey);
-
-if (!isTest() && !hashIdKey) {
-  throw new Error('Missing HASHIDS_KEY');
-}
+const hashIds = new HashIds(HASHIDS_KEY);
 
 export function encodeId(id: ObjectId): string {
   return hashIds.encodeHex(String(id));

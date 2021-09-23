@@ -1,7 +1,7 @@
-const accessKeyId = process.env.AWS_KEY_ID;
-const secretAccessKey = process.env.AWS_SECRET;
+import { getEnv } from "@utils/env";
 
-if (!accessKeyId || !secretAccessKey) throw new Error('Missing AWS keys.');
+const accessKeyId = getEnv("AWS_KEY_ID");
+const secretAccessKey = getEnv("AWS_SECRET");
 
 const awsCredentials = {
   accessKeyId,
