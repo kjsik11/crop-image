@@ -4,7 +4,11 @@ export const getEnv: (name: string) => string = (name: string) => {
     return val;
   }
 
-  throw new Error(`NotFound: missing environment variable ${name}`);
+  if (!isTest()) {
+    throw new Error(`NotFound: missing environment variable ${name}`);
+  }
+
+  return '';
 };
 
 export const isTest: () => boolean = () => {
