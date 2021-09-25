@@ -1,4 +1,5 @@
 import Lottie from 'lottie-react';
+
 import spinner from '../../lottie/spinner.json';
 
 export default function Loading() {

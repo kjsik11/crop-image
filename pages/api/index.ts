@@ -1,5 +1,6 @@
-import type { NextApiRequest, NextApiResponse } from 'next';
 import { withErrorHandler } from '@utils/with-error-handler';
+
+import type { NextApiRequest, NextApiResponse } from 'next';
 
 /**
  *
