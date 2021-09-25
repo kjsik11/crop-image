@@ -6,7 +6,7 @@
     "lint": "next lint",
     "start": "next start",
     "test": "jest --detectOpenHandles --forceExit",
-    "clean": "./clean.sh",
+    "clean": "./clean.sh && yarn install",
     "docs": "apidoc -i ./pages/api/ -o ./public/docs/"
   },
   "dependencies": {
