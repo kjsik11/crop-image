@@ -1,4 +1,5 @@
-import { ObjectId } from 'bson';
+import { ObjectId } from 'mongodb';
+
 import { decodeId, encodeDocument, encodeId } from '@utils/mongodb/encrypt';
 
 describe('encrypt document', () => {

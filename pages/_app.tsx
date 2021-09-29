@@ -7,10 +7,7 @@ import NProgress from 'nprogress';
 import { useEffect } from 'react';
 import { SWRConfig } from 'swr';
 
-// import ManagedUIContext from '@components/context';
 import { CommonLayout } from '@components/layout';
-
-import { fetcher } from '@lib/fetcher';
 
 import type { AppProps } from 'next/app';
 
@@ -21,7 +18,7 @@ NProgress.configure({
   showSpinner: false,
 });
 
-const fetcherSWR = async (url: string) => await fetcher(url).json();
+const fetcherSWR = (url: string) => fetch(url).then((res) => res.json());
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -42,6 +39,7 @@ export default function App({ Component, pageProps }: AppProps) {
     <>
       <Script src="/js/redirectIE.js" strategy="beforeInteractive" />
       <SWRConfig value={{ fetcher: fetcherSWR }}>
+        {/* <SWRConfig value={{ fetcher: (url: string) => fetch(url).then((res) => res.json()) }}> */}
         {/* <ManagedUIContext> */}
         <CommonLayout>
           <Component {...pageProps} />

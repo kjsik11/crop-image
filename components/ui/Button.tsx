@@ -1,6 +1,5 @@
 import cn from 'classnames';
 import { ElementType, Ref } from 'react';
-
 import { Props, __ } from 'types';
 
 import { forwardRefWithAs } from '@utils/forward-ref-with-as';

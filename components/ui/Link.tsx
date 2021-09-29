@@ -1,5 +1,4 @@
 import NextLink from 'next/link';
-
 import { PropsOf } from 'types';
 
 export default function Link({ href, children, ...props }: PropsOf<'a'>) {
