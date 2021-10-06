@@ -1,44 +1,57 @@
 import { ObjectId } from 'bson';
-import { decodeId, encodeDocument, encodeId } from '@utils/mongodb/encrypt';
+
+import { EncodeId } from 'types';
+
+import { decodeId, encodeDocument, encodeDocuments, encodeId } from '@src/utils/mongodb/encrypt';
 
 describe('encrypt document', () => {
-  beforeEach(() => {
-    process.env.HASHIDS_KEY = 'foo';
-  });
-
-  // encodeId()
   test('test encodeId()', () => {
+    // given
     const id = new ObjectId('ffffffffffffffffffffffff');
-    const expected = 'BxLnqL8Z7AiQDM5DA2ox';
+    const expected = '2KoAnowbOPcAbv5baxg2';
 
-    expect(encodeId(id)).toBe(expected);
+    // when
+    const result = encodeId(id);
+
+    // expect
+    expect(result).toBe(expected);
   });
 
-  // decodeId()
   test('test decodeId()', () => {
-    const id = 'BxLnqL8Z7AiQDM5DA2ox';
+    // given
+    const id = '2KoAnowbOPcAbv5baxg2';
     const expected = new ObjectId('ffffffffffffffffffffffff');
 
-    expect(decodeId(id)).toStrictEqual(expected);
+    // when
+    const result = decodeId(id);
+
+    //expect
+    expect(result).toStrictEqual(expected);
   });
 
-  // encodeDocument(Object)
-  test('test encodeDocument(input: Object)', () => {
-    const user = {
+  test('test encodeDocument: Document', () => {
+    // given
+    type Input = { _id: ObjectId; username: string };
+    const user: Input = {
       _id: new ObjectId('ffffffffffffffffffffffff'),
       username: 'foo',
     };
-    const expected = {
-      Id: 'BxLnqL8Z7AiQDM5DA2ox',
-      username: 'foo',
-    };
 
-    expect(encodeDocument(user)).toStrictEqual(expected);
+    // when
+    type Output = EncodeId<Input>;
+    const result = encodeDocument<Output>(user);
+
+    // expect
+    expect(result).toStrictEqual({
+      Id: '2KoAnowbOPcAbv5baxg2',
+      username: 'foo',
+    });
   });
 
-  // encodeDocument(Array<Object>)
-  test('test encodeDocument(input: Array<Object>)', () => {
-    const user = [
+  test('test encodeDocument: Array<Document>', () => {
+    // given
+    type Input = { _id: ObjectId; username: string };
+    const users: Array<Input> = [
       {
         _id: new ObjectId('ffffffffffffffffffffffff'),
         username: 'foo',
@@ -48,31 +61,60 @@ describe('encrypt document', () => {
         username: 'bar',
       },
     ];
-    const expected = [
+
+    // when
+    type Output = EncodeId<Input>;
+    const result = encodeDocuments<Output>(users);
+
+    // expect
+    expect(result).toStrictEqual([
       {
-        Id: 'BxLnqL8Z7AiQDM5DA2ox',
+        Id: '2KoAnowbOPcAbv5baxg2',
         username: 'foo',
       },
       {
-        Id: '4qxrK3r1kNCyB2j82P6V',
+        Id: '8B2aGOaeb9iElQnGQr9e',
         username: 'bar',
       },
-    ];
-
-    expect(encodeDocument(user)).toStrictEqual(expected);
+    ]);
+    expect(result[0].Id).toBe('2KoAnowbOPcAbv5baxg2'); // type conversion check
+    expect(result[1].Id).toBe('8B2aGOaeb9iElQnGQr9e'); // type conversion check
   });
 
-  // encodeDocument(Object{_ids:Array<ObjectId>})
-  test('test encodeDocument(input: {_ids: Array<ObjectId>})', () => {
-    const user = {
-      _ids: [new ObjectId('ffffffffffffffffffffffff'), new ObjectId('000000000000000000000000')],
-      username: 'foo',
+  test('test encodeDocument: {key: Document}', () => {
+    // given
+    type Input = {
+      _id: ObjectId;
+      username: string;
+      item: {
+        _id: ObjectId;
+        itemname: string;
+      };
     };
-    const expected = {
-      Ids: ['BxLnqL8Z7AiQDM5DA2ox', '4qxrK3r1kNCyB2j82P6V'],
+    const input = {
+      _id: new ObjectId('ffffffffffffffffffffffff'),
       username: 'foo',
+      item: {
+        _id: new ObjectId('000000000000000000000000'),
+        name: 'icecream',
+      },
     };
 
-    expect(encodeDocument(user)).toStrictEqual(expected);
+    // when
+    type Output = EncodeId<Input>;
+    const result = encodeDocument<Output>(input);
+
+    // expect
+    expect(result).toStrictEqual({
+      Id: '2KoAnowbOPcAbv5baxg2',
+      username: 'foo',
+      item: {
+        Id: '8B2aGOaeb9iElQnGQr9e',
+        name: 'icecream',
+      },
+    });
+
+    expect(result.Id).toBe('2KoAnowbOPcAbv5baxg2'); // type conversion check
+    expect(result.item.Id).toBe('8B2aGOaeb9iElQnGQr9e'); // type conversion check
   });
 });
