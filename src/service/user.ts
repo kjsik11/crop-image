@@ -1,8 +1,3 @@
-import {
-  GithubOauthLoginParam,
-  GithubOauthLoginResult,
-  loginWithGithub,
-} from '@src/utils/oauth/github';
 import { ObjectId } from 'bson';
 import moment from 'moment';
 import { Db } from 'mongodb';
@@ -17,6 +12,11 @@ import {
   UserBsonWithoutCredentials,
 } from '@src/model/user';
 import { UserRepository } from '@src/repository/user';
+import {
+  GithubOauthLoginParam,
+  GithubOauthLoginResult,
+  loginWithGithub,
+} from '@src/utils/oauth/github';
 
 export class UserService {
   userRepo: UserRepository;
