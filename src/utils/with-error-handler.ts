@@ -25,7 +25,7 @@ export function withErrorHandler(handler: NextApiHandler) {
       }
 
       if (err instanceof CustomError) {
-        return res.status(err.status).json(err);
+        return res.status(err.statusCode).json(err);
       }
 
       return res

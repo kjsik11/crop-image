@@ -1,13 +1,18 @@
+// import Joi, { number } from 'joi';
+
+// const ERROR_VARIANTS = ['CE'] as const;
+// type ErrorCode = `${typeof ERROR_VARIANTS[number]}${number}`;
+
 export class CustomError extends Error {
   code: string;
-  status: number;
+  statusCode: number;
   name: string;
   message: string;
 
-  constructor(code: string, status: number, name: string, message: string) {
+  constructor(code: string, statusCode: number, name: string, message: string) {
     super();
     this.code = code;
-    this.status = status;
+    this.statusCode = statusCode;
     this.name = name;
     this.message = message;
   }
