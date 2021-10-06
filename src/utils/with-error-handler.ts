@@ -13,7 +13,7 @@ export function withErrorHandler(handler: NextApiHandler) {
       await handler(req, res);
 
       if (!isResSent(res)) {
-        res.status(400).json(ERRORS.METHOD_NOT_EXISTS());
+        res.status(405).json(ERRORS.METHOD_NOT_EXISTS());
       }
     } catch (err) {
       if (isResSent(res)) {
