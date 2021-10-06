@@ -1,4 +1,4 @@
-import { getEnv } from '@utils/env';
+import { getEnv } from '@src/utils/env';
 
 // Auth
 export const JWT_SECRET = getEnv('JWT_SECRET');

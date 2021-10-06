@@ -1,6 +1,6 @@
 import { MongoClient, MongoClientOptions } from 'mongodb';
 
-import { getEnv, isDev } from '@utils/env';
+import { getEnv, isDev } from '@src/utils/env';
 
 const mongoUri = getEnv('MONGODB_URI');
 

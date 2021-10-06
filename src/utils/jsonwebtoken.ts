@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 
-import ERRORS from '@defines/errors';
+import ERRORS from '@src/defines/errors';
 
 import { getEnv } from './env';
 

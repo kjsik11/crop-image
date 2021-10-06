@@ -1,7 +1,7 @@
 import Joi from 'joi';
 import { isResSent } from 'next/dist/shared/lib/utils';
 
-import ERRORS, { CustomError } from '@defines/errors';
+import ERRORS, { CustomError } from '@src/defines/errors';
 
 import { isProd } from './env';
 

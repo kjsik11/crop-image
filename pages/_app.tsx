@@ -6,13 +6,10 @@ import Script from 'next/script';
 import NProgress from 'nprogress';
 import { useEffect } from 'react';
 import { SWRConfig } from 'swr';
-
-// import ManagedUIContext from '@components/context';
-import { CommonLayout } from '@components/layout';
-
-import { fetcher } from '@lib/fetcher';
-
 import type { AppProps } from 'next/app';
+
+import { CommonLayout } from '@src/components/layout';
+import { fetcher } from '@src/lib/fetcher';
 
 NProgress.configure({
   minimum: 0.3,

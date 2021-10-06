@@ -1,4 +1,4 @@
-import { Loading } from '@components/core';
+import { Loading } from '@src/components/core';
 
 export default function LoadingPage() {
   return <Loading />;

@@ -1,4 +1,4 @@
-import { getEnv } from '@utils/env';
+import { getEnv } from '@src/utils/env';
 
 const accessKeyId = getEnv('AWS_KEY_ID');
 const secretAccessKey = getEnv('AWS_SECRET');

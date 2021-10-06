@@ -1,7 +1,7 @@
-import { Modal, Notification } from '@components/ui';
+import { Modal, Notification } from '@src/components/ui';
 
-import { useModal } from '@lib/hooks/use-modal';
-import { useNoti } from '@lib/hooks/use-noti';
+import { useModal } from '@src/lib/hooks/use-modal';
+import { useNoti } from '@src/lib/hooks/use-noti';
 
 export default function CommonLayout({ children }: { children: React.ReactNode }) {
   const { modal, closeModal } = useModal();
