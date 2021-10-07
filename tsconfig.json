@@ -16,11 +16,7 @@
     "baseUrl": ".",
     "paths": {
       "@assets/*": ["assets/*"],
-      "@components/*": ["components/*"],
-      "@defines/*": ["defines/*"],
-      "@lib/*": ["lib/*"],
-      "@utils/*": ["utils/*"],
-      "@repository/*": ["repository/*"]
+      "@src/*": ["src/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.js"],

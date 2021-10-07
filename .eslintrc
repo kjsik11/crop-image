@@ -19,27 +19,17 @@
             "position": "after"
           },
           {
-            "pattern": "@components/**",
-            "group": "internal",
-            "position": "after"
-          },
-          {
-            "pattern": "@defines/**",
-            "group": "internal",
-            "position": "after"
-          },
-          {
-            "pattern": "@lib/**",
-            "group": "internal",
-            "position": "after"
-          },
-          {
-            "pattern": "@utils/**",
+            "pattern": "@src/**",
             "group": "internal",
             "position": "after"
           },
           {
             "pattern": "types/**",
+            "group": "internal",
+            "position": "after"
+          },
+          {
+            "pattern": "pages/**",
             "group": "internal",
             "position": "after"
           }
