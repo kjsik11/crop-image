@@ -59,8 +59,14 @@ export default function IndexPage() {
                   </div>
                 }
               />
-              <p className="mt-4">Set File name</p>
-              <input onChange={(e) => setDownloadFileName(e.target.value)} />
+              <p className="mt-4">Set File name (no extension)</p>
+              <input
+                maxLength={50}
+                placeholder="example"
+                className="w-full h-12 border border-gray-400 rounded-md px-2"
+                value={downloadFileName}
+                onChange={(e) => setDownloadFileName(e.target.value)}
+              />
             </div>
             <div className="self-end w-full">
               <Button full size="lg">
