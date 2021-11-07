@@ -1,5 +1,5 @@
 import cn from 'classnames';
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 
 import { useNoti } from '@src/lib/hooks/use-noti';
 
@@ -19,7 +19,6 @@ export default function DragDrop({
   maximumSize = 10,
 }: DragDropProps) {
   const [dragOverStatus, setDragOverStatus] = useState(false);
-  const inputRef = useRef<HTMLInputElement>(null);
 
   const isValidFileSize = (file: File) => file.size < maximumSize * 1000 * 1000;
 
@@ -29,7 +28,7 @@ export default function DragDrop({
     <div
       className={cn(
         className,
-        'mt-1 flex justify-center items-center px-6 py-3 h-36 border-2 border-dashed rounded-md transition-colors',
+        'mt-1 flex justify-center items-center px-6 py-3 border-2 border-dashed rounded-md transition-colors w-full h-full',
         dragOverStatus ? 'border-gray-500' : 'border-gray-300',
       )}
       onDragOver={(e) => {
@@ -74,40 +73,56 @@ export default function DragDrop({
       {dragOverStatus ? (
         <p className="font-medium text-gray-700">drop a file here</p>
       ) : (
-        <div className="space-y-1 flex flex-col items-center">
-          <div className="text-sm text-gray-600">
-            <button className="relative cursor-pointer bg-white rounded-md font-medium text-blue-600 hover:underline hover:text-blue-500 focus-within:outline-none">
-              Upload a file
-            </button>
-            <span className="pl-1">&nbsp;or drag and drop image</span>
+        <div className="space-y-1 text-center">
+          <svg
+            className="mx-auto h-12 w-12 text-gray-400"
+            stroke="currentColor"
+            fill="none"
+            viewBox="0 0 48 48"
+            aria-hidden="true"
+          >
+            <path
+              d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
+              strokeWidth={2}
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+          <div className="flex text-sm text-gray-600">
+            <label
+              htmlFor={id}
+              className="relative cursor-pointer bg-white rounded-md font-medium text-blue-600 hover:text-blue-500 focus-within:outline-none"
+            >
+              <span>Upload a file</span>
+              <input
+                id={id}
+                name="file-upload"
+                type="file"
+                className="sr-only"
+                accept="image/gif, image/jpeg, image/png"
+                onChange={(e) => {
+                  if (!e.target.files || !e.target.files[0]) return;
+
+                  const file = e.target.files[0];
+
+                  if (!isValidFileSize(file)) {
+                    return showNoti({
+                      variant: 'alert',
+                      title: `Exceeded maximum file size ${(file.size / 1000 / 1000).toFixed(
+                        1,
+                      )}MB (Max: ${maximumSize}MB)`,
+                    });
+                  }
+
+                  onDropFile(file);
+                }}
+              />
+            </label>
+            <p className="pl-1">or drag and drop</p>
           </div>
           <p className="text-xs text-gray-500">PNG, JPG, GIF up to {maximumSize}MB</p>
         </div>
       )}
-      <input
-        id={id}
-        ref={inputRef}
-        name="file-upload"
-        type="file"
-        className="hidden"
-        accept="image/gif, image/jpeg, image/png"
-        onChange={(e) => {
-          if (!e.target.files || !e.target.files[0]) return;
-
-          const file = e.target.files[0];
-
-          if (!isValidFileSize(file)) {
-            return showNoti({
-              variant: 'alert',
-              title: `Exceeded maximum file size ${(file.size / 1000 / 1000).toFixed(
-                1,
-              )}MB (Max: ${maximumSize}MB)`,
-            });
-          }
-
-          onDropFile(file);
-        }}
-      />
     </div>
   );
 }
